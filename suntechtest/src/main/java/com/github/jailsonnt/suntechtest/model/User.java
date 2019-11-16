@@ -1,13 +1,16 @@
 package com.github.jailsonnt.suntechtest.model;
 
 import com.github.jailsonnt.suntechtest.dao.UserDao;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Value;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 
-@Value
+@Data
+@AllArgsConstructor
 public class User implements Serializable {
     private Long id;
     @NotEmpty(message = "The username field must be filled.")
