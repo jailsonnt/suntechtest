@@ -77,8 +77,14 @@ class UserPage extends Component {
         console.log(user); 
     }
 
-    delUser = (user) => {
-        console.log(user); 
+    delUser = (id) => {
+        console.log('delete');
+        console.log(id);
+        axios.delete(`http://localhost:8442/api/user/${id}`)
+            .then(res => {
+                console.log(res);
+                this.loadList();
+            });
     }
 
     nextPage = () => {

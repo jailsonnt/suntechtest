@@ -1,11 +1,21 @@
 import React, { Component } from 'react'
+import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export class UserListItem extends Component {
     render() {
         return (
             <React.Fragment>
                 <tr>
-                    <th scope="col"></th>
+                    <th scope="col">
+                    <button  class='btn btn-sm col' > 
+                        <FontAwesomeIcon icon={faUserEdit} />
+                    </button>
+                    <button onClick={this.props.delUser.bind(this, this.props.user.id)} class='btn btn-sm col' > 
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                    </button>
+                    </th>
                     <th scope="col">{this.props.user.id}</th>
                     <th scope="col">{this.props.user.username}</th>
                     <th scope="col">{this.props.user.password}</th>
@@ -20,5 +30,6 @@ export class UserListItem extends Component {
         )
     }
 }
+
 
 export default UserListItem
