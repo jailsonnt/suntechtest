@@ -1,68 +1,75 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Teste suntech - User List
 
-## Available Scripts
+Aplicação desenvolvida para o processo seletivo da empresa suntech de 11/2019. Os requisitos recebidos estão abaixo:
 
-In the project directory, you can run:
 
-### `npm start`
+**Neste desafio você deverá:**
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [x] Desenvolver uma aplicação Web simples, utilizando React para o frontend e Java para o backend.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [x] A aplicação deve exibir apenas uma listagem da entidade Users;
 
-### `npm test`
+- [x] Utilizar algum framework de persitência (jpa, hibernate, mybatis, etc...);
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [x] Não é necessária tela de login;
 
-### `npm run build`
+- [x] Pode-se usar qualquer banco relacional (mysql, postgres, hsqldb...);
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [x] Definição da entidade Users:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+      * id (int)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+      * username (String)
 
-### `npm run eject`
+      * password (String)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+      * is_enabled (boolean)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+      * register_date (Date)
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+      * name (String)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+      * surname (String)
 
-## Learn More
+      * email (String)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+      * phone (String)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [x] A listagem deve ser capaz de filtrar o conteúdo pelo username, name ou email mostrando como resultado todas as colunas descritas no item anterior;
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
+**O que você deve nos entregar após a conclusão do desafio:**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+1) Código fonte do projeto e suas dependências
 
-### Making a Progressive Web App
+2) Passo a passo do procedimento de importação na ferramenta de desenvolvimento e versão do Java utilizados;
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+3) Pequeno descritivo explicando a estratégia de construção utilizada na concepção da solução - arquitetura e design dos componentes;
 
-### Advanced Configuration
+4) Fazer auto-avaliação do que criou entre pontos fortes e a melhorar na solução.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Esse repositório contém o projeto do [backend](https://github.com/jailsonnt/suntechtest/tree/master/suntechtest) e do [frontend](https://github.com/jailsonnt/suntechtest/tree/master/suntechtest_front). O backend utiliza maven como gerenciador de dependências, portanto, basta importar o projeto em qualquer IDE com suporte ao Maven e todas as dependências serão baixadas. O frontend utiliza npm portanto também contém todas as depedências necessárias.
 
-### Deployment
+Para importar o projeto do backend na IDE, será necessário uma IDE com suporte ao Maven e utilizar o **importar** referente ao maven da IDE escolhida. A pasta que deve ser escolhida para importar o backend é o subrepositório **suntechtest**.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+-   O banco de dados escolhido foi o mysql mas pode ser alterado alterando as configurações em **src/main/resources/application.properties**
+-   A aplicação foi configurada de forma a criar automaticamente a tabela no banco e precisa somente que seja configurado um banco existente na configuração **spring.datasource.url** , portanto o primeiro passo deve ser **criar o banco** e o segundo **configurar a url username e password no arquivo application.properties**
 
-### `npm run build` fails to minify
+Para importar o projeto do frontend basta **abrir** a pasta **suntechtest_front**.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Para executar o projeto do frontend via linha de comando, basta executar os comandos **npm ci** e **npm start** na pasta do front logo após o git clone do repositório.
+
+Para executar o projeto do backend via linha de comando, basta executar o comando **mvn install** na pasta do backend logo após o git clone do repositório, depois acessar a subpasta **target** criada, colar o arquivo editado com suas configurações de application.properties dentro de target e executar o comando **java -jar suntechteste-0.0.1.jar**.
+
+O backend foi feito utilizando o framework spring boot. A escolha do framework foi feita pois ele oferece várias funcionalidades prontas e bem testadas  que aceleram o desenvolvimento. Além dele foi utilizado o lombok como para gerar um código menos extenso, sem perder nenhuma funcionalidade.
+
+Arquiteturalmente foram utilizados os padrões Repositorio e DAO na camada de persistência separando totalmente todas as camadas de software. Vários recursos do spring foram utilizados de forma a validar objetos JSON e fornecer respostas adequadas para a API. A camada de serviço é bastante simples por ser um CRUD cuja única lógica diferente necessária contida na consulta por filtro, essa lógica foi implementada na consulta dentro da camada de acesso a dados. A opção de paginação foi tomado como boa prática para evitar grande massa de dados sendo transportada de uma vez, oque pode gerar experiências ruins para o usuário. Além disso o objeto page fornece todas as opções neessárias para o frontend ser capaz de paginar a lista.
+A interface da camada de serviços permite criação de mock para execução de testes unitários sem alteração nas implementações originais, a camada de repositorio também utiliza interface permitindo mock. Para complementar isso apesar de utilizar injeção de dependencia em tempo de execução os há construtures recebendo essas interfaces, isso também foi feito com o objetivo de ser utilizado para inserir implementações Mock para testes unitários. Essas decisões também tornam a aplicação aderente aos princípios SOLID
+
+No front end busquei uma implementação simples e eficiente, para garantir com segurança que os requisitos fossem implementados dentro do tempo necessário. Essa preocupação com gerenciamento de riscos foi tomada levando-se em conta o fato de que essa foi a minha primeira utilização do react e o tempo de desenvolvimento foi dividido entre aprendizado e execução.
+
+Como melhoria nesse projeto eu continuaria a implementação utilizando o padrão Decorator na camada de serviços e Endpoint para separar os tratamentos de erro e validações da implementação em si.
+Faria a implementação de testes automatizados unitários e de integração.
+No front end, poderia utilizar outras bibliotecas em conjunto com React, separaria o form User da lista de usuários com um botão fazendo collapse do form , finalizaria a implementação das operações delete e edit, utilizar a biblioteca de componentes como primereact para garantir uma aparência mais *profissional*, além disso algumas melhoras de usabilidade como inserir os filtros no título das colunas, melhora no componente de paginação criado.   
+
