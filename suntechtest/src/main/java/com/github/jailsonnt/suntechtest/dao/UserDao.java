@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "UserDao.findUsersByLikeFilters",
                 query = "select new com.github.jailsonnt.suntechtest.model.User(u.id, u.username, u.password, u.isEnabled, u.registerDate, u.name, u.surname,u.email, u.phone) "
                         + "from UserDao u "
-                        + "where upper(u.username) like CONCAT('%', :usernameFilter, '%') "
+                        + "where upper(u.username) like CONCAT('%', upper(:usernameFilter), '%') "
                         + "and upper(u.name) like CONCAT('%', upper(:nameFilter), '%') "
                         + "and upper(u.email) like CONCAT('%', upper(:emailFilter), '%') "
                         + "order by u.id")
