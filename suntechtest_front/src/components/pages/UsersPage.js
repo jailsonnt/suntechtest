@@ -122,7 +122,7 @@ class UserPage extends Component {
     }
 
     filterUser = (filter) => {
-        let url = `http://localhost:8442/api/user?page=${this.state.page.totalPages}&rowsPerPage=5`;
+        let url = `http://localhost:8442/api/user?page=${1}&rowsPerPage=5`;
         if (filter.username !== '') {
             url = url + '&usernameFilter='+ filter.username;
         }
