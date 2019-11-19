@@ -4,12 +4,35 @@ export class AddUser extends Component {
     onChange = (e) => {
         if (e.target.name === 'isEnabled'){
             if (e.target.value === 'true'){
-                this.setState({ isEnabled: true});
+                this.props.formUser.isEnabled = true;
             } else {
-                this.setState({ isEnabled: false});
+                this.props.formUser.isEnabled = false;
             }
         }else {
             this.setState({ [e.target.name]: e.target.value});
+        }
+
+        switch (e.target.name) {
+            case 'username':
+                this.props.formUser.username = e.target.value;
+                break;
+            case 'password':
+                this.props.formUser.password = e.target.value;
+                break;
+            case 'name':
+                this.props.formUser.name = e.target.value;
+                break;
+            case 'surname':
+                this.props.formUser.surname = e.target.value;
+                break;
+            case 'email':
+                this.props.formUser.email = e.target.value;
+                break;
+            case 'phone':
+                this.props.formUser.phone = e.target.value;
+                break;
+            default:
+                console.log(e.target.name +  'nao tratado');
         }
     }
 

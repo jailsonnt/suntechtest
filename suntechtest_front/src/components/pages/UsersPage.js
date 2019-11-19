@@ -63,26 +63,27 @@ class UserPage extends Component {
         if (this.state.formUser.username !== '' && this.state.formUser.password !== '' && this.state.formUser.name !== '' && this.state.formUser.email !== ''){
             if (this.state.formUser.id !== null && this.state.formUser.id !== undefined && this.state.formUser.id > 0){
                 console.log('Edit');
-                axios.put('http://localhost:8442/api/user/' + this.state.formUser.id, this.state.formUser.username).then(res => {
+                axios.put('http://localhost:8442/api/user/' + this.state.formUser.id, this.state.formUser).then(res => {
                     console.log(res);
-                    this.loadList();
                     this.setState({ formUser: {} });
+                    this.loadList();
+                    
                 }, err => {
                     console.error('erro adicionando usuario');
                     console.error(err);
                 });
             } else {
                 console.log('New');
-                axios.post('http://localhost:8442/api/user', this.state.formUser.username).then(res => {
+                axios.post('http://localhost:8442/api/user', this.state.formUser).then(res => {
                     console.log(res);
-                    this.loadList();
                     this.setState({ formUser: {} });
+                    this.loadList();
+                    
                 }, err => {
                     console.error('erro adicionando usuario');
                     console.error(err);
                 });
             }
-            
         }
         
     }
