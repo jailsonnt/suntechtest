@@ -4,9 +4,9 @@ import UserListItem from './UserListItem';
 export class UserList extends Component {
     render() {
         return (
-            <div>
+            <React.Fragment>
                 <table className="table">
-                <thead class="thead-dark">
+                <thead className="thead-dark">
                     <tr>
                         <th scope="col">actions</th>
                         <th scope="col">id</th>
@@ -27,7 +27,7 @@ export class UserList extends Component {
                     }
                 </tbody>
                 </table>
-            </div>
+            </React.Fragment>
         )
     }
 }

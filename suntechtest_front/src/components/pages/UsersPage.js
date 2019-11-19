@@ -19,9 +19,6 @@ class UserPage extends Component {
                 },
                 "pageNumber": 0,
                 "pageSize": 10,
-                "offset": 0,
-                "unpaged": false,
-                "paged": true
             },
             "totalElements": 0,
             "totalPages": 0,
@@ -34,7 +31,8 @@ class UserPage extends Component {
             "size": 0,
             "number": 0,
             "empty": false
-        }
+        },
+        formUser: {}
     }
 
     componentDidMount(){
@@ -59,22 +57,40 @@ class UserPage extends Component {
         }
     }
 
-    addUser = (user) => {
+    addUser = () => {
         console.log('cheguei');
-        if (user.username !== '' && user.password !== '' && user.name !== '' && user.email !== ''){
-            axios.post('http://localhost:8442/api/user', user).then(res => {
-                console.log(res);
-                this.loadList();
-            }, err => {
-                console.error('erro adicionando usuario');
-                console.error(err);
-            });
+        console.log(this.state.formUser);
+        if (this.state.formUser.username !== '' && this.state.formUser.password !== '' && this.state.formUser.name !== '' && this.state.formUser.email !== ''){
+            if (this.state.formUser.id !== null && this.state.formUser.id !== undefined && this.state.formUser.id > 0){
+                console.log('Edit');
+                axios.put('http://localhost:8442/api/user/' + this.state.formUser.id, this.state.formUser.username).then(res => {
+                    console.log(res);
+                    this.loadList();
+                    this.setState({ formUser: {} });
+                }, err => {
+                    console.error('erro adicionando usuario');
+                    console.error(err);
+                });
+            } else {
+                console.log('New');
+                axios.post('http://localhost:8442/api/user', this.state.formUser.username).then(res => {
+                    console.log(res);
+                    this.loadList();
+                    this.setState({ formUser: {} });
+                }, err => {
+                    console.error('erro adicionando usuario');
+                    console.error(err);
+                });
+            }
+            
         }
-        console.log(user);
+        
     }
 
     editUser = (user) => {
-        console.log(user); 
+        console.log('edit');
+        console.log(user);
+        this.setState({ formUser: user });
     }
 
     delUser = (id) => {
@@ -140,13 +156,12 @@ class UserPage extends Component {
         }
         console.log(filter);
         this.loadList(url);
-        
     }
 
     render() {
         return (
             <div className='container-fluid'>
-                <AddUser addUser={this.addUser} />
+                <AddUser formUser={this.state.formUser} addUser={this.addUser} />
                 <Filters filterUser={this.filterUser}/>
                 <UserList page={this.state.page} editUser={this.editUser} delUser={this.delUser}/>
                 <PageableControls 

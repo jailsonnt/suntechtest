@@ -9,10 +9,10 @@ export class UserListItem extends Component {
             <React.Fragment>
                 <tr>
                     <th scope="col">
-                    <button  class='btn btn-sm col' > 
+                    <button onClick={this.props.editUser.bind(this, this.props.user)} className='btn btn-sm col' > 
                         <FontAwesomeIcon icon={faUserEdit} />
                     </button>
-                    <button onClick={this.props.delUser.bind(this, this.props.user.id)} class='btn btn-sm col' > 
+                    <button onClick={this.props.delUser.bind(this, this.props.user.id)} className='btn btn-sm col' > 
                         <FontAwesomeIcon icon={faTrashAlt} />
                     </button>
                     </th>

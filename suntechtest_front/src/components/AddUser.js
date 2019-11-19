@@ -1,18 +1,6 @@
 import React, { Component } from 'react'
 
 export class AddUser extends Component {
-    state = {
-        id: null,
-        username: '',
-        password: '',
-        isEnabled: true,
-        registerDate: '',
-        name: '',
-        surname: '',
-        email: '',
-        phone: ''
-    }
-    
     onChange = (e) => {
         if (e.target.name === 'isEnabled'){
             if (e.target.value === 'true'){
@@ -27,31 +15,12 @@ export class AddUser extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
-        const user = {
-            id: this.state.id,
-            username: this.state.username,
-            password: this.state.password,
-            isEnabled: this.state.isEnabled,
-            registerDate: Date.now(),
-            name: this.state.name,
-            surname: this.state.surname,
-            email: this.state.email,
-            phone: this.state.phone
-        }
-        this.props.addUser(user);
-        this.setState({id: null}); 
-        this.setState({username: ''});
-        this.setState({password: ''});
-        this.setState({isEnabled: true});
-        this.setState({registerDate: ''});
-        this.setState({name: ''});
-        this.setState({surname: ''});
-        this.setState({email: ''});
-        this.setState({phone: ''});
+        console.log(this.props.formUser);
+        this.props.addUser();
     }
 
     render() {
+        
         return (
             <React.Fragment>
                 
@@ -65,7 +34,7 @@ export class AddUser extends Component {
                             name="username"
                             placeholder="Username" 
                             className='form-control col'
-                            value={this.state.username}
+                            value={this.props.formUser.username}
                             onChange={this.onChange}
                             />
                             <input 
@@ -73,14 +42,14 @@ export class AddUser extends Component {
                             name="password"
                             className='form-control col'
                             placeholder="Password" 
-                            value={this.state.password}
+                            value={this.props.formUser.password}
                             onChange={this.onChange}
                             />
                             <select type="text"
                             name="isEnabled"
                             className='form-control col'
                             placeholder="select the status" 
-                            value={this.state.isEnabled}
+                            value={this.props.formUser.isEnabled}
                             onChange={this.onChange}>
                                 <option value="true">Enabled</option>
                                 <option value="false">Disabled</option>
@@ -92,7 +61,7 @@ export class AddUser extends Component {
                             name="name"
                             className='form-control col'
                             placeholder="Name" 
-                            value={this.state.name}
+                            value={this.props.formUser.name}
                             onChange={this.onChange}
                             />
                         </div>
@@ -102,7 +71,7 @@ export class AddUser extends Component {
                             name="surname"
                             className='form-control col'
                             placeholder="Surname" 
-                            value={this.state.surname}
+                            value={this.props.formUser.surname}
                             onChange={this.onChange}
                             />
                             <input 
@@ -110,7 +79,7 @@ export class AddUser extends Component {
                             name="email"
                             className='form-control col'
                             placeholder="E-mail" 
-                            value={this.state.email}
+                            value={this.props.formUser.email}
                             onChange={this.onChange}
                             />
                             <input 
@@ -118,7 +87,7 @@ export class AddUser extends Component {
                             name="phone"
                             className='form-control col'
                             placeholder="Phone" 
-                            value={this.state.phone}
+                            value={this.props.formUser.phone}
                             onChange={this.onChange}
                             />
                             <input
